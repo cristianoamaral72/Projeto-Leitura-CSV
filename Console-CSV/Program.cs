@@ -21,7 +21,7 @@ namespace Console_CSV
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            string filePath = @"C:\DEV\Projetos Cristiano\Projeto-Teste\Console-CSV\CSV\modelolookerReduzidoCSV.csv";
+            string filePath = @"C:\DEV\Projetos Cristiano\Projeto-Leitura-CSV\Console-CSV\CSV\modelolookerReduzidoCSV.csv";
             var reader = ReadCsvFile(filePath);
         }
 
@@ -45,7 +45,6 @@ namespace Console_CSV
                     // Substitui as datas por placeholders usando Regex.Replace
                     line = Regex.Replace(line, datePattern, match =>
                     {
-                        //string placeholder = $"{{DATE{dateIndex}}}";
                         string placeholder = ExtractDateWithRegex(match.Groups[1].Value);//$"{{DATE{dateIndex++}}}";
                         datePlaceholders[placeholder] = placeholder;//match.Groups[1].Value;
                         return placeholder;
@@ -69,15 +68,6 @@ namespace Console_CSV
             }
 
             var dados = records.Select(array => array.Where(item => !string.IsNullOrEmpty(item)).ToArray()).Where(array => array.Length > 0).ToList();
-
-            foreach (var dado in dados)
-            {
-                foreach (var t in dado)
-                {
-                    Console.WriteLine(!string.IsNullOrEmpty(t) ? t : "Nulo");
-                }
-            }
-
             return dados;
         }
 
